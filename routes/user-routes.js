@@ -75,14 +75,14 @@ router.get("/getuser/:email", async function(req,res){
 
     }
     catch(err) {
-    res.status(401).send({"error":"this is not valid email"})
+    res.send({"error":"this is not valid email"})
     }
 
 
 })
 
 router.patch('/editprofile',authMiddleware, async(req,res) => {
-    console.log(req.body)
+    
 
     const updates = Object.keys(req.body);
     const allowedKeys = ['name','password','aboutStatus'];
@@ -104,7 +104,7 @@ router.patch('/editprofile',authMiddleware, async(req,res) => {
         })
     }
     catch(err) {
-        res.status(400).send({"error":err})
+        res.send({"error":err})
     }
 
 })
@@ -118,7 +118,7 @@ router.delete('/deleteAccout', async function(req,res) {
         })
     }
     catch(error) {
-        res.status(401).send({"error":"unable to delete"})
+        res.send({"error":"unable to delete"})
     }
 
 })
@@ -133,7 +133,7 @@ router.post('/logoutall', authMiddleware, async function(req,res) {
         })
     }
     catch(err) {
-        res.status(401).send({"error":"Unable to logout"})
+        res.send({"error":"Unable to logout"})
     }
 })
 
@@ -161,7 +161,7 @@ router.post('/profile/me', authMiddleware, upload.single('profile'), async (req,
         "message":"profile updloaded"
     })
 }, (error,req,res,next) => {
-    res.status(401).send({"error":error.message})
+    res.send({"error":error.message})
 } 
 )
 
@@ -182,7 +182,7 @@ router.get('/profile/:id/me', async (req, res) => {
         res.set('Content-Type', 'image/png')
         res.send({profile: user.profile})
     } catch (e) {
-        res.status(404).send({"Error":"Didnt find profile"})
+        res.send({"Error":"Didnt find profile"})
     }
 })
 

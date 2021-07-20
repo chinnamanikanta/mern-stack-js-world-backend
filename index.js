@@ -21,6 +21,10 @@ app.use(logger('dev'))
 
 
 app.use(cors({origin: "http://localhost:5500", credentials: true}));
+
+app.get('/', (req,res) => {
+    res.send("hello world")
+})
 app.use('/users',userRoute);
 app.use('/books',booksRoute);
 

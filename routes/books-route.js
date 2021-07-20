@@ -38,7 +38,7 @@ router.get("/allbooks", async function(req,res) {
     const books = await Books.find({});
     
 
-    res.status(200).send({
+    res.send({
         "success":true,
         "data":books
     })
@@ -46,7 +46,7 @@ router.get("/allbooks", async function(req,res) {
 
     }
     catch(error) {
-        res.status(401).send({"error":"can't find url"})
+        res.send({"error":"can't find url"})
     }
 
 
@@ -67,7 +67,7 @@ router.get('/singlebook/:id', async function(req,res) {
 
     }
     catch(error) {
-        res.status(401).send({"Error":"This is not required"})
+        res.send({"Error":"This is not required"})
     }
 
 
