@@ -20,7 +20,7 @@ app.set('view engine', 'ejs')
 app.use(logger('dev'))
 
 
-app.use(cors({origin: "http://localhost:5500", credentials: true}));
+app.use(cors({origin: "https://mern-stack-js-world-app.netlify.app", credentials: true}));
 
 app.get('/', (req,res) => {
     res.send("hello world")
