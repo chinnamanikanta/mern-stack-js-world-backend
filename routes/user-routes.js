@@ -137,54 +137,54 @@ router.post('/logoutall', authMiddleware, async function(req,res) {
     }
 })
 
-const upload = multer({
-    limits: {
-        fileSize:1000000
-    },
-    fileFilter(req,file,cb){
-        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-            return cb(new Error("Please upload the Image"))
-        }
+// const upload = multer({
+//     limits: {
+//         fileSize:1000000
+//     },
+//     fileFilter(req,file,cb){
+//         if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+//             return cb(new Error("Please upload the Image"))
+//         }
 
-        cb(undefined,true)
+//         cb(undefined,true)
 
 
-    }
-})
+//     }
+// })
 
-router.post('/profile/me', authMiddleware, upload.single('profile'), async (req,res) => {
-    const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
-    req.user.profile = buffer;
-    await req.user.save();
-    res.send({ 
-        "success":true,
-        "message":"profile updloaded"
-    })
-}, (error,req,res,next) => {
-    res.send({"error":error.message})
-} 
-)
+// router.post('/profile/me', authMiddleware, upload.single('profile'), async (req,res) => {
+//     const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
+//     req.user.profile = buffer;
+//     await req.user.save();
+//     res.send({ 
+//         "success":true,
+//         "message":"profile updloaded"
+//     })
+// }, (error,req,res,next) => {
+//     res.send({"error":error.message})
+// } 
+// )
 
-router.delete('/profile/me/delete', authMiddleware, async (req, res) => {
-    req.user.profile = undefined
-    await req.user.save()
-    res.send()
-})
+// router.delete('/profile/me/delete', authMiddleware, async (req, res) => {
+//     req.user.profile = undefined
+//     await req.user.save()
+//     res.send()
+// })
 
-router.get('/profile/:id/me', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id)
+// router.get('/profile/:id/me', async (req, res) => {
+//     try {
+//         const user = await User.findById(req.params.id)
 
-        if (!user || !user.profile) {
-            throw new Error()
-        }
+//         if (!user || !user.profile) {
+//             throw new Error()
+//         }
 
-        res.set('Content-Type', 'image/png')
-        res.send({profile: user.profile})
-    } catch (e) {
-        res.send({"Error":"Didnt find profile"})
-    }
-})
+//         res.set('Content-Type', 'image/png')
+//         res.send({profile: user.profile})
+//     } catch (e) {
+//         res.send({"Error":"Didnt find profile"})
+//     }
+// })
 
 
 
